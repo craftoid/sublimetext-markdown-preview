@@ -14,10 +14,20 @@
         Sets the default parser for converting markdown to html.
         Warning for github API : if you have a ST2 linux build, Python is not built with SSL o it may not work
 
-        default - Use the builtin python-markdown2 parser
+        default - Use the builtin markdown2 parser
+        markdown - Use the builtin python-markdown parser (experimental, with github flavoured markdown tables)
         github - User github API to convert markdown, so you can use GitHub flavored Markdown, see http://github.github.com/github-flavored-markdown/
     */
     "parser": "default",
+
+    /*
+        Provide a list of extensions to use by the selected markdown parser.
+
+        default - use the default set of extensions
+        [ "default", "def_list", ... ] - a list of extensions. Use "default" to include the default extensions.
+
+    */
+    "extensions": "default",
 
     /*
         Sets the default css file to embed in the HTML

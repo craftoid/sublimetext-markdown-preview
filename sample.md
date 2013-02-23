@@ -115,6 +115,132 @@ The Github Markdown also brings some [nice Emoji support][emoji] : :+1: :heart: 
 
 [^note-id]: This is the text of the note. 
 
+
+## **Python Markdown** Extensions
+
+The **Python Markdown** parser provides support for several extensions.
+
+### Extra Extensions
+
+* [Abbreviations][]
+* [Attribute Lists][]
+* [Definition Lists][]
+* [Fenced Code Blocks][]
+* [Footnotes][]
+* [Tables][]
+* [Smart Strong][]
+
+[Abbreviations]: http://pythonhosted.org/Markdown/extensions/abbreviations.html
+[Attribute Lists]: http://pythonhosted.org/Markdown/extensions/attr_list.html
+[Definition Lists]: http://pythonhosted.org/Markdown/extensions/definition_lists.html
+[Fenced Code Blocks]: http://pythonhosted.org/Markdown/extensions/fenced_code_blocks.html
+[Footnotes]: http://pythonhosted.org/Markdown/extensions/footnotes.html
+[Tables]: http://pythonhosted.org/Markdown/extensions/tables.html
+[Smart Strong]: http://pythonhosted.org/Markdown/extensions/smart_strong.html
+
+
+By default all extra extensions are enabled.
+You can enable **all** extra extensions at once using the `extra` keyword.
+
+    extensions: [ 'extra' ]
+
+
+### Other Extensions
+
+There are also some extensions that are not included in Markdown Extra
+but come in the standard Python-Markdown library.
+
+* [CodeHilite][]
+* [HTML Tidy][]
+* [HeaderId][]
+* [Meta-Data][]
+* [New Line to Break][]
+* [RSS][]
+* [Sane Lists][]
+* [Table of Contents][]
+* [WikiLinks][]
+
+[CodeHilite]:  http://pythonhosted.org/Markdown/extensions/code_hilite.html
+[HTML Tidy]:  http://pythonhosted.org/Markdown/extensions/html_tidy.html
+[HeaderId]:  http://pythonhosted.org/Markdown/extensions/header_id.html
+[Meta-Data]:  http://pythonhosted.org/Markdown/extensions/meta_data.html
+[New Line to Break]:  http://pythonhosted.org/Markdown/extensions/nl2br.html
+[RSS]:  http://pythonhosted.org/Markdown/extensions/rss.html
+[Sane Lists]:  http://pythonhosted.org/Markdown/extensions/sane_lists.html
+[Table of Contents]:  http://pythonhosted.org/Markdown/extensions/toc.html
+[WikiLinks]:  http://pythonhosted.org/Markdown/extensions/wikilinks.html
+
+
+## **Markdown2** Extensions
+
+The **Markdown2** parser also provides support for extensions, known as [Extras][].   
+You can configure the list of extras you want to use inside the package settings.
+
+
+## Extra Extensions
+
+The default extras are:
+
+* [Footnotes][Footnotes Extra]
+* Table of Contents
+* [Fenced CodeBlocks][]
+* [Cuddled Lists][]
+
+[Footnotes Extra]:      https://github.com/trentm/python-markdown2/wiki/footnotes
+[Fenced CodeBlocks]:    https://github.com/trentm/python-markdown2/wiki/fenced-code-blocks
+[Cuddled Lists]:        https://github.com/trentm/python-markdown2/wiki/cuddled-lists
+
+
+You can enable **all** default extras at once using the `extra` keyword.
+
+    extensions: [ 'extra' ]
+
+If you want all the default extras plus the 'wiki-table' extra,
+your settings would look like this:
+
+    {
+        ...
+        parser: 'markdown2',
+        extensions: ['extra', 'wiki-table'],
+        ...
+    }
+
+
+## Other Extras
+
+For a complete list of extras please checkout the [Extras Wiki Page][Extras].
+
+[Extras]:   https://github.com/trentm/python-markdown2/wiki/Extras
+
+
+## Examples
+
+
+### Tables
+
+The `tables` extension of the *Python Markdown* parser is activated by default,
+but is currently not available in *Markdown2*.
+
+The syntax was adopted from the [php markdown project](http://michelf.ca/projects/php-markdown/extra/#table),
+and is also used in github flavoured markdown.
+
+| Year | Temperature (low) | Temperature (high) |
+| ---- | ----------------- | -------------------|
+| 1900 |               -10 |                 25 |
+| 1910 |               -15 |                 30 |
+| 1920 |               -10 |                 32 |
+
+
+### Wiki Tables
+
+If you are using *Markdown2* with the `wiki-tables` extra activated you should see a table below:
+
+|| *Year* || *Temperature (low)* || *Temperature (high)* ||
+||   1900 ||                 -10 ||                   25 ||
+||   1910 ||                 -15 ||                   30 ||
+||   1920 ||                 -10 ||                   32 ||
+
+
 ## About
 
 This plugin and this sample file is proudly brought to you by the [revolunet team][revolunet]

@@ -7,6 +7,7 @@ import sys
 import re
 import json
 import urllib2
+import markdown
 
 
 settings = sublime.load_settings('MarkdownPreview.sublime-settings')
@@ -103,33 +104,60 @@ class MarkdownPreviewCommand(sublime_plugin.TextCommand):
         config_parser = settings.get('parser')
 
         markdown_html = u'cannot convert markdown'
+
         if config_parser and config_parser == 'github':
-            sublime.status_message('converting markdown with github API...')
-            try:
-                #contents = contents.replace('%', '')    # see https://gist.github.com/3742011
-                data = json.dumps({"text": contents, "mode": "gfm"})
-                url = "https://api.github.com/markdown"
-                request = urllib2.Request(url, data, {'Content-Type': 'application/json'})
-                markdown_html = urllib2.urlopen(request).read().decode('utf-8')
-            except urllib2.HTTPError:
-                sublime.error_message('github API responded in an unfashion way :/')
-            except urllib2.URLError:
-                sublime.error_message('cannot use github API to convert markdown. SSL is not included in your Python installation')
-            except:
-                sublime.error_message('cannot use github API to convert markdown. Please check your settings.')
-            else:
-                sublime.status_message('converted markdown with github API successfully')
+
+			# convert via github
+			sublime.status_message('converting markdown with github API...')
+			try:
+				#contents = contents.replace('%', '')    # see https://gist.github.com/3742011
+				data = json.dumps({"text": contents, "mode": "gfm"})
+				url = "https://api.github.com/markdown"
+				request = urllib2.Request(url, data, {'Content-Type': 'application/json'})
+				markdown_html = urllib2.urlopen(request).read().decode('utf-8')
+			except urllib2.HTTPError:
+				sublime.error_message('github API responded in an unfashion way :/')
+			except urllib2.URLError:
+				sublime.error_message('cannot use github API to convert markdown. SSL is not included in your Python installation')
+			except:
+				sublime.error_message('cannot use github API to convert markdown. Please check your settings.')
+			else:
+				sublime.status_message('converted markdown with github API successfully')
+
         else:
-            # convert the markdown
-            markdown_html = markdown2.markdown(contents, extras=['footnotes', 'toc', 'fenced-code-blocks', 'cuddled-lists'])
-            toc_html = markdown_html.toc_html
-            if toc_html:
-                toc_markers = ['[toc]', '[TOC]', '<!--TOC-->']
-                for marker in toc_markers:
-                    markdown_html = markdown_html.replace(marker, toc_html)
+
+            # convert with a local python parser
+            config_extensions = settings.get('extensions')
+            if not config_extensions or config_extensions == 'default':
+                config_extensions = [ 'default' ]
+
+            # use the markdown2 parser by default
+            if not config_parser or config_parser == 'default' or config_parser == 'markdown2':
+
+                if 'default' in config_extensions:
+				    config_extensions.remove( 'default' )
+				    config_extensions.extend( ['footnotes', 'toc', 'fenced-code-blocks', 'cuddled-lists'] )
+
+                markdown_html = markdown2.markdown(contents, extras=config_extensions)
+                toc_html = markdown_html.toc_html
+
+                if toc_html:
+					toc_markers = ['[toc]', '[TOC]', '<!--TOC-->']
+					for marker in toc_markers:
+						markdown_html = markdown_html.replace(marker, toc_html)
+
+            # optionally use the original python-markdown parser 
+            elif config_parser and ( config_parser == 'python-markdown' or config_parser == 'markdown' ):
+
+                if 'default' in config_extensions:
+                    config_extensions.remove( 'default' )
+                    config_extensions.extend( ['footnotes', 'toc', 'fenced_code', 'tables'] )
+
+                markdown_html = markdown.markdown(contents, extensions=config_extensions)
 
             # postprocess the html
             markdown_html = self.postprocessor(markdown_html)
+
 
         # check if LiveReload ST2 extension installed
         livereload_installed = ('LiveReload' in os.listdir(sublime.packages_path()))
