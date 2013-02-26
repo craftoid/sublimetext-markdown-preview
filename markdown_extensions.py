@@ -17,5 +17,5 @@ extension_module = "markdown.extensions"
 
 for  _, package, _ in pkgutil.walk_packages("."):
 	if package.startswith(extension_module):
-		print "Reloading plugin extension %s" % os.path.join(packages_path, plugin_name, *package.split(".")) + ".py"
+		print "Reloading plugin extension %s" % os.path.join(packages_path, package_name, *package.split(".")) + ".py"
 		__import__(package)
