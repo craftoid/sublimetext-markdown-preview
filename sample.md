@@ -10,9 +10,9 @@ this is *italic* and this is **bold** .  another _italic_ and another __bold__
 
 this is `important` text. and percentage signs : % and `%`
 
-This is a paragraph with a footnote (builtin parser only). [^note-id] 
+This is a paragraph with a footnote (builtin parser only). [^note-id]
 
-Insert `[ toc ]` without spaces to generate a table of contents (builtin parser only).
+Insert `[ toc ]` without spaces to generate a table of contents (builtin parsers only).
 
 ## Indentation
 > Here is some indented text
@@ -115,20 +115,25 @@ The Github Markdown also brings some [nice Emoji support][emoji] : :+1: :heart: 
 
 [^note-id]: This is the text of the note. 
 
+## Parsers and Extensions
 
-## **Python Markdown** Extensions
+Markdown Preview comes with **Python-Markdown** and **Markdown2** preloaded.
 
-The **Python Markdown** parser provides support for several extensions.
+### *Python-Markdown*
 
-### Extra Extensions
+The [Python-Markdown Parser][] provides support for several extensions.
 
-* [Abbreviations][]
-* [Attribute Lists][]
-* [Definition Lists][]
-* [Fenced Code Blocks][]
-* [Footnotes][]
-* [Tables][]
-* [Smart Strong][]
+[Python-Markdown Parser]: https://github.com/waylan/Python-Markdown
+
+#### Extra Extensions
+
+* `abbr` -- [Abbreviations][]
+* `attr_list` -- [Attribute Lists][]
+* `def_list` -- [Definition Lists][]
+* `fenced_code` -- [Fenced Code Blocks][]
+* `footnotes` -- [Footnotes][]
+* `tables` -- [Tables][]
+* `smart_strong` -- [Smart Strong][]
 
 [Abbreviations]: http://pythonhosted.org/Markdown/extensions/abbreviations.html
 [Attribute Lists]: http://pythonhosted.org/Markdown/extensions/attr_list.html
@@ -139,26 +144,35 @@ The **Python Markdown** parser provides support for several extensions.
 [Smart Strong]: http://pythonhosted.org/Markdown/extensions/smart_strong.html
 
 
-By default all extra extensions are enabled.
-You can enable **all** extra extensions at once using the `extra` keyword.
+You can enable them all at once using the `extra` keyword.
 
     extensions: [ 'extra' ]
 
+If you want all the extras plus the `toc` extension,
+your settings would look like this:
 
-### Other Extensions
+    {
+        ...
+        parser: 'markdown',
+        extensions: ['extra', 'toc'],
+        ...
+    }
+
+
+#### Other Extensions
 
 There are also some extensions that are not included in Markdown Extra
 but come in the standard Python-Markdown library.
 
-* [CodeHilite][]
-* [HTML Tidy][]
-* [HeaderId][]
-* [Meta-Data][]
-* [New Line to Break][]
-* [RSS][]
-* [Sane Lists][]
-* [Table of Contents][]
-* [WikiLinks][]
+* `code-hilite` -- [CodeHilite][]
+* `html-tidy` -- [HTML Tidy][]
+* `header-id` -- [HeaderId][]
+* `meta_data` -- [Meta-Data][]
+* `nl2br` -- [New Line to Break][]
+* `rss` -- [RSS][]
+* `sane_lists` -- [Sane Lists][]
+* `toc` -- [Table of Contents][]
+* `wikilinks` -- [WikiLinks][]
 
 [CodeHilite]:  http://pythonhosted.org/Markdown/extensions/code_hilite.html
 [HTML Tidy]:  http://pythonhosted.org/Markdown/extensions/html_tidy.html
@@ -170,43 +184,72 @@ but come in the standard Python-Markdown library.
 [Table of Contents]:  http://pythonhosted.org/Markdown/extensions/toc.html
 [WikiLinks]:  http://pythonhosted.org/Markdown/extensions/wikilinks.html
 
+#### 3rd Party Extensions
 
-## **Markdown2** Extensions
 
-The **Markdown2** parser also provides support for extensions, known as [Extras][].   
+*Python-Markdown* is designed to be extended.
+Just fork this repo and add your extensions inside the `.../Packages/Markdown Preview/markdown/extensions/` folder.
+
+Check out the list of [3rd Party extensions](
+https://github.com/waylan/Python-Markdown/wiki/Third-Party-Extensions).
+
+
+#### Default Extensions
+
+The default extensions are:
+
+* `footnotes` -- [Footnotes]
+* `toc` -- [Table of Contents]
+* `fenced_code` -- [Fenced Code Blocks] 
+* `tables` -- [Tables]
+
+Use the `default` keyword, to select them all.
+If you want all the defaults plus the `definition_lists` extension,
+your settings would look like this:
+
+    {
+        ...
+        parser: 'markdown',
+        extensions: ['default', 'definition_lists'],
+        ...
+    }
+
+
+### *Markdown2*
+
+The [Markdown2 Parser][] also provides support for extensions, known as [Extras][].   
 You can configure the list of extras you want to use inside the package settings.
 
+[Markdown2 Parser]: https://github.com/trentm/python-markdown2
 
-## Extra Extensions
+
+#### Default Extras
 
 The default extras are:
 
-* [Footnotes][Footnotes Extra]
-* Table of Contents
-* [Fenced CodeBlocks][]
-* [Cuddled Lists][]
+* `footnotes` -- [Footnotes][Footnotes Extra]
+* `toc` -- Table of Contents
+* `fenced-code-blocks` -- [Fenced CodeBlocks][]
+* `cuddled-lists` -- [Cuddled Lists][]
 
 [Footnotes Extra]:      https://github.com/trentm/python-markdown2/wiki/footnotes
 [Fenced CodeBlocks]:    https://github.com/trentm/python-markdown2/wiki/fenced-code-blocks
 [Cuddled Lists]:        https://github.com/trentm/python-markdown2/wiki/cuddled-lists
 
 
-You can enable **all** default extras at once using the `extra` keyword.
-
-    extensions: [ 'extra' ]
-
+You can enable all default extras at once using the `default` keyword.
 If you want all the default extras plus the 'wiki-table' extra,
 your settings would look like this:
 
     {
         ...
         parser: 'markdown2',
-        extensions: ['extra', 'wiki-table'],
+        extensions: ['default', 'wiki-table'],
         ...
     }
 
 
-## Other Extras
+#### Other Extras
 
 For a complete list of extras please checkout the [Extras Wiki Page][Extras].
 
@@ -218,27 +261,39 @@ For a complete list of extras please checkout the [Extras Wiki Page][Extras].
 
 ### Tables
 
-The `tables` extension of the *Python Markdown* parser is activated by default,
-but is currently not available in *Markdown2*.
+The `tables` extension of the *Python-Markdown* parser is activated by default,
+but is currently **not** available in *Markdown2*.
 
 The syntax was adopted from the [php markdown project](http://michelf.ca/projects/php-markdown/extra/#table),
 and is also used in github flavoured markdown.
 
-| Year | Temperature (low) | Temperature (high) |
-| ---- | ----------------- | -------------------|
-| 1900 |               -10 |                 25 |
-| 1910 |               -15 |                 30 |
-| 1920 |               -10 |                 32 |
+| Year | Temperature (low) | Temperature (high) |  
+| ---- | ----------------- | -------------------|  
+| 1900 |               -10 |                 25 |  
+| 1910 |               -15 |                 30 |  
+| 1920 |               -10 |                 32 |  
 
 
 ### Wiki Tables
 
 If you are using *Markdown2* with the `wiki-tables` extra activated you should see a table below:
 
-|| *Year* || *Temperature (low)* || *Temperature (high)* ||
-||   1900 ||                 -10 ||                   25 ||
-||   1910 ||                 -15 ||                   30 ||
-||   1920 ||                 -10 ||                   32 ||
+|| *Year* || *Temperature (low)* || *Temperature (high)* ||  
+||   1900 ||                 -10 ||                   25 ||  
+||   1910 ||                 -15 ||                   30 ||  
+||   1920 ||                 -10 ||                   32 ||  
+
+
+### Definition Lists
+
+This example requires *Python Markdown*'s `def_list` extension.
+
+Apple
+:   Pomaceous fruit of plants of the genus Malus in 
+    the family Rosaceae.
+
+Orange
+:   The fruit of an evergreen tree of the genus Citrus.
 
 
 ## About

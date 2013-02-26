@@ -126,8 +126,8 @@ body{font-size:16px;}
 <h2 id="text-basics">Text basics</h2>
 <p>this is <em>italic</em> and this is <strong>bold</strong> .  another <em>italic</em> and another <strong>bold</strong></p>
 <p>this is <code>important</code> text. and percentage signs : % and <code>%</code></p>
-<p>This is a paragraph with a footnote (builtin parser only). <sup id="fnref:note-id"><a class="footnote-ref" href="#fn:note-id" rel="footnote">1</a></sup> </p>
-<p>Insert <code>[ toc ]</code> without spaces to generate a table of contents (builtin parser only).</p>
+<p>This is a paragraph with a footnote (builtin parser only). <sup id="fnref:note-id"><a class="footnote-ref" href="#fn:note-id" rel="footnote">1</a></sup></p>
+<p>Insert <code>[ toc ]</code> without spaces to generate a table of contents (builtin parsers only).</p>
 <h2 id="indentation">Indentation</h2>
 <blockquote>
 <p>Here is some indented text</p>
@@ -215,65 +215,95 @@ async_call('/path/to/api', function(json) {
 </code></pre>
 
 <p>The Github Markdown also brings some <a href="http://www.emoji-cheat-sheet.com/">nice Emoji support</a> : :+1: :heart: :beer:</p>
-<h2 id="python-markdown-extensions"><strong>Python Markdown</strong> Extensions</h2>
-<p>The <strong>Python Markdown</strong> parser provides support for several extensions.</p>
-<h3 id="extra-extensions">Extra Extensions</h3>
+<h2 id="parsers-and-extensions">Parsers and Extensions</h2>
+<p>Markdown Preview comes with <strong>Python-Markdown</strong> and <strong>Markdown2</strong> preloaded.</p>
+<h3 id="python-markdown"><em>Python-Markdown</em></h3>
+<p>The <a href="https://github.com/waylan/Python-Markdown">Python-Markdown Parser</a> provides support for several extensions.</p>
+<h4 id="extra-extensions">Extra Extensions</h4>
 <ul>
-<li><a href="http://pythonhosted.org/Markdown/extensions/abbreviations.html">Abbreviations</a></li>
-<li><a href="http://pythonhosted.org/Markdown/extensions/attr_list.html">Attribute Lists</a></li>
-<li><a href="http://pythonhosted.org/Markdown/extensions/definition_lists.html">Definition Lists</a></li>
-<li><a href="http://pythonhosted.org/Markdown/extensions/fenced_code_blocks.html">Fenced Code Blocks</a></li>
-<li><a href="http://pythonhosted.org/Markdown/extensions/footnotes.html">Footnotes</a></li>
-<li><a href="http://pythonhosted.org/Markdown/extensions/tables.html">Tables</a></li>
-<li><a href="http://pythonhosted.org/Markdown/extensions/smart_strong.html">Smart Strong</a></li>
+<li><code>abbr</code> -- <a href="http://pythonhosted.org/Markdown/extensions/abbreviations.html">Abbreviations</a></li>
+<li><code>attr_list</code> -- <a href="http://pythonhosted.org/Markdown/extensions/attr_list.html">Attribute Lists</a></li>
+<li><code>def_list</code> -- <a href="http://pythonhosted.org/Markdown/extensions/definition_lists.html">Definition Lists</a></li>
+<li><code>fenced_code</code> -- <a href="http://pythonhosted.org/Markdown/extensions/fenced_code_blocks.html">Fenced Code Blocks</a></li>
+<li><code>footnotes</code> -- <a href="http://pythonhosted.org/Markdown/extensions/footnotes.html">Footnotes</a></li>
+<li><code>tables</code> -- <a href="http://pythonhosted.org/Markdown/extensions/tables.html">Tables</a></li>
+<li><code>smart_strong</code> -- <a href="http://pythonhosted.org/Markdown/extensions/smart_strong.html">Smart Strong</a></li>
 </ul>
-<p>By default all extra extensions are enabled.
-You can enable <strong>all</strong> extra extensions at once using the <code>extra</code> keyword.</p>
+<p>You can enable them all at once using the <code>extra</code> keyword.</p>
 <pre><code>extensions: [ 'extra' ]
 </code></pre>
-<h3 id="other-extensions">Other Extensions</h3>
+<p>If you want all the extras plus the <code>toc</code> extension,
+your settings would look like this:</p>
+<pre><code>{
+    ...
+    parser: 'markdown',
+    extensions: ['extra', 'toc'],
+    ...
+}
+</code></pre>
+<h4 id="other-extensions">Other Extensions</h4>
 <p>There are also some extensions that are not included in Markdown Extra
 but come in the standard Python-Markdown library.</p>
 <ul>
-<li><a href="http://pythonhosted.org/Markdown/extensions/code_hilite.html">CodeHilite</a></li>
-<li><a href="http://pythonhosted.org/Markdown/extensions/html_tidy.html">HTML Tidy</a></li>
-<li><a href="http://pythonhosted.org/Markdown/extensions/header_id.html">HeaderId</a></li>
-<li><a href="http://pythonhosted.org/Markdown/extensions/meta_data.html">Meta-Data</a></li>
-<li><a href="http://pythonhosted.org/Markdown/extensions/nl2br.html">New Line to Break</a></li>
-<li><a href="http://pythonhosted.org/Markdown/extensions/rss.html">RSS</a></li>
-<li><a href="http://pythonhosted.org/Markdown/extensions/sane_lists.html">Sane Lists</a></li>
-<li><a href="http://pythonhosted.org/Markdown/extensions/toc.html">Table of Contents</a></li>
-<li><a href="http://pythonhosted.org/Markdown/extensions/wikilinks.html">WikiLinks</a></li>
+<li><code>code-hilite</code> -- <a href="http://pythonhosted.org/Markdown/extensions/code_hilite.html">CodeHilite</a></li>
+<li><code>html-tidy</code> -- <a href="http://pythonhosted.org/Markdown/extensions/html_tidy.html">HTML Tidy</a></li>
+<li><code>header-id</code> -- <a href="http://pythonhosted.org/Markdown/extensions/header_id.html">HeaderId</a></li>
+<li><code>meta_data</code> -- <a href="http://pythonhosted.org/Markdown/extensions/meta_data.html">Meta-Data</a></li>
+<li><code>nl2br</code> -- <a href="http://pythonhosted.org/Markdown/extensions/nl2br.html">New Line to Break</a></li>
+<li><code>rss</code> -- <a href="http://pythonhosted.org/Markdown/extensions/rss.html">RSS</a></li>
+<li><code>sane_lists</code> -- <a href="http://pythonhosted.org/Markdown/extensions/sane_lists.html">Sane Lists</a></li>
+<li><code>toc</code> -- <a href="http://pythonhosted.org/Markdown/extensions/toc.html">Table of Contents</a></li>
+<li><code>wikilinks</code> -- <a href="http://pythonhosted.org/Markdown/extensions/wikilinks.html">WikiLinks</a></li>
 </ul>
-<h2 id="markdown2-extensions"><strong>Markdown2</strong> Extensions</h2>
-<p>The <strong>Markdown2</strong> parser also provides support for extensions, known as <a href="https://github.com/trentm/python-markdown2/wiki/Extras">Extras</a>. <br />
+<h4 id="3rd-party-extensions">3rd Party Extensions</h4>
+<p><em>Python-Markdown</em> is designed to be extended.
+Just fork this repo and add your extensions inside the <code>.../Packages/Markdown Preview/markdown/extensions/</code> folder.</p>
+<p>Check out the list of <a href="https://github.com/waylan/Python-Markdown/wiki/Third-Party-Extensions">3rd Party extensions</a>.</p>
+<h4 id="default-extensions">Default Extensions</h4>
+<p>The default extensions are:</p>
+<ul>
+<li><code>footnotes</code> -- <a href="http://pythonhosted.org/Markdown/extensions/footnotes.html">Footnotes</a></li>
+<li><code>toc</code> -- <a href="http://pythonhosted.org/Markdown/extensions/toc.html">Table of Contents</a></li>
+<li><code>fenced_code</code> -- <a href="http://pythonhosted.org/Markdown/extensions/fenced_code_blocks.html">Fenced Code Blocks</a> </li>
+<li><code>tables</code> -- <a href="http://pythonhosted.org/Markdown/extensions/tables.html">Tables</a></li>
+</ul>
+<p>Use the <code>default</code> keyword, to select them all.
+If you want all the defaults plus the <code>definition_lists</code> extension,
+your settings would look like this:</p>
+<pre><code>{
+    ...
+    parser: 'markdown',
+    extensions: ['default', 'definition_lists'],
+    ...
+}
+</code></pre>
+<h3 id="markdown2"><em>Markdown2</em></h3>
+<p>The <a href="https://github.com/trentm/python-markdown2">Markdown2 Parser</a> also provides support for extensions, known as <a href="https://github.com/trentm/python-markdown2/wiki/Extras">Extras</a>. <br />
 You can configure the list of extras you want to use inside the package settings.</p>
-<h2 id="extra-extensions_1">Extra Extensions</h2>
+<h4 id="default-extras">Default Extras</h4>
 <p>The default extras are:</p>
 <ul>
-<li><a href="https://github.com/trentm/python-markdown2/wiki/footnotes">Footnotes</a></li>
-<li>Table of Contents</li>
-<li><a href="https://github.com/trentm/python-markdown2/wiki/fenced-code-blocks">Fenced CodeBlocks</a></li>
-<li><a href="https://github.com/trentm/python-markdown2/wiki/cuddled-lists">Cuddled Lists</a></li>
+<li><code>footnotes</code> -- <a href="https://github.com/trentm/python-markdown2/wiki/footnotes">Footnotes</a></li>
+<li><code>toc</code> -- Table of Contents</li>
+<li><code>fenced-code-blocks</code> -- <a href="https://github.com/trentm/python-markdown2/wiki/fenced-code-blocks">Fenced CodeBlocks</a></li>
+<li><code>cuddled-lists</code> -- <a href="https://github.com/trentm/python-markdown2/wiki/cuddled-lists">Cuddled Lists</a></li>
 </ul>
-<p>You can enable <strong>all</strong> default extras at once using the <code>extra</code> keyword.</p>
-<pre><code>extensions: [ 'extra' ]
-</code></pre>
-<p>If you want all the default extras plus the 'wiki-table' extra,
+<p>You can enable all default extras at once using the <code>default</code> keyword.
+If you want all the default extras plus the 'wiki-table' extra,
 your settings would look like this:</p>
 <pre><code>{
     ...
     parser: 'markdown2',
-    extensions: ['extra', 'wiki-table'],
+    extensions: ['default', 'wiki-table'],
     ...
 }
 </code></pre>
-<h2 id="other-extras">Other Extras</h2>
+<h4 id="other-extras">Other Extras</h4>
 <p>For a complete list of extras please checkout the <a href="https://github.com/trentm/python-markdown2/wiki/Extras">Extras Wiki Page</a>.</p>
 <h2 id="examples">Examples</h2>
 <h3 id="tables">Tables</h3>
-<p>The <code>tables</code> extension of the <em>Python Markdown</em> parser is activated by default,
-but is currently not available in <em>Markdown2</em>.</p>
+<p>The <code>tables</code> extension of the <em>Python-Markdown</em> parser is activated by default,
+but is currently <strong>not</strong> available in <em>Markdown2</em>.</p>
 <p>The syntax was adopted from the <a href="http://michelf.ca/projects/php-markdown/extra/#table">php markdown project</a>,
 and is also used in github flavoured markdown.</p>
 <table>
@@ -337,6 +367,15 @@ and is also used in github flavoured markdown.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="definition-lists">Definition Lists</h3>
+<p>This example requires <em>Python Markdown</em>'s <code>def_list</code> extension.</p>
+<dl>
+<dt>Apple</dt>
+<dd>Pomaceous fruit of plants of the genus Malus in 
+the family Rosaceae.</dd>
+<dt>Orange</dt>
+<dd>The fruit of an evergreen tree of the genus Citrus.</dd>
+</dl>
 <h2 id="about">About</h2>
 <p>This plugin and this sample file is proudly brought to you by the <a href="http://revolunet.com">revolunet team</a></p>
 <div class="footnote">
