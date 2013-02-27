@@ -3,7 +3,7 @@ Sublime Text 2 MarkDown preview
 
 A simple ST2 plugin to help you preview your markdown files quickly in you web browser.
 
-You can use builtin [python-markdown2][0] parser (default) or use the [github markdown API][5] for the conversion (edit your settings to select it).
+You can use the builtin [python-markdown2][0] parser (default), the original [python-markdown][1] parser or the [github markdown API][5] for the conversion (edit your settings to select it).
 
 If you have the ST2 LiveReload plugin, your browser will autorefresh the display when you save your file :)
 
@@ -35,14 +35,20 @@ If you have the ST2 LiveReload plugin, your browser will autorefresh the display
  - [python-markdown2][0] for markdown parsing **OR** the GitHub markdown API.
 
 
-## Licence :
+## Licenses :
 
-The code is available at github [https://github.com/revolunet/sublimetext-markdown-preview][2] under MIT licence : [http://revolunet.mit-license.org][4]
+ - This [Markdown Preview][2] package is licensed under the [MIT license][4]
+ - [python-markdown2][2] included in this package is licensed under the [MIT license][8]
+ - [Python-Markdown][1] included in this package is licensed under the [Apache License][9]
 
+ 
  [0]: https://github.com/trentm/python-markdown2
+ [1]: https://github.com/waylan/Python-Markdown
  [2]: https://github.com/revolunet/sublimetext-markdown-preview
  [3]: http://wbond.net/sublime_packages/package_control
  [4]: http://revolunet.mit-license.org
  [5]: http://developer.github.com/v3/markdown
  [6]: http://github.github.com/github-flavored-markdown/
  [7]: https://github.com/dz0ny/LiveReload-sublimetext2
+ [8]: https://github.com/trentm/python-markdown2/blob/master/LICENSE.txt
+ [9]: https://github.com/waylan/Python-Markdown/blob/master/LICENSE.md
