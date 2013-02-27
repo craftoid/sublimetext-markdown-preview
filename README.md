@@ -39,7 +39,7 @@ If you have the ST2 LiveReload plugin, your browser will autorefresh the display
 
  - This [Markdown Preview][2] package is licensed under the [MIT license][4]
  - [python-markdown2][2] included in this package is licensed under the [MIT license][8]
- - [Python-Markdown][1] included in this package is licensed under the [Apache License][9]
+ - [Python-Markdown][1] included in this package is licensed under the [BSD License][9]
 
  
  [0]: https://github.com/trentm/python-markdown2
